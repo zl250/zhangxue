@@ -15,3 +15,6 @@ desktop.ini
 # 编辑器
 .vscode/
 .idea/
+
+# IDE 生成的分享包
+.trae-html-share-packages/
