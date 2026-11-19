@@ -24,6 +24,7 @@
 ├─ Cheney_prompt.md          # AI 指令记录
 ├─ frontend/                 # 前端
 │  ├─ index.html             # 首页（项目信息 + 页面导航）
+│  ├─ database.html          # 数据库连接测试页
 │  ├─ css/                   # 样式
 │  ├─ js/                    # 脚本
 │  ├─ fonts/                 # iconfont 图标文件
