@@ -10,6 +10,7 @@ const Zhang_express = require("express");
 const Zhang_cors = require("cors");
 const Zhang_homeRoutes = require("./routes/Zhang_homeRoutes");
 const Zhang_databaseRoutes = require("./routes/Zhang_databaseRoutes");
+const Zhang_newsRoutes = require("./routes/Zhang_newsRoutes");
 
 const Zhang_app = Zhang_express();
 const Zhang_PORT = 727;
@@ -20,6 +21,7 @@ Zhang_app.use(Zhang_express.urlencoded({ extended: true }));
 
 Zhang_app.use("/api", Zhang_homeRoutes);
 Zhang_app.use("/api", Zhang_databaseRoutes);
+Zhang_app.use("/api", Zhang_newsRoutes);
 
 Zhang_app.use(
   Zhang_express.static(Zhang_path.join(__dirname, "..", "frontend"))
