@@ -1,0 +1,374 @@
+/*
+  姓名：张雪 | 学号：24001010727 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+  说明：首页样式，原生 CSS，无任何第三方依赖
+*/
+
+:root {
+  --Zhang_blue: #056de8;
+  --Zhang_blue-light: #4a9dff;
+  --Zhang_cyan: #22d3ee;
+  --Zhang_bg: #060b18;
+  --Zhang_text: #e8eefc;
+  --Zhang_text-dim: #8d9bb5;
+  --Zhang_card-bg: rgba(16, 26, 48, 0.62);
+  --Zhang_line: rgba(120, 160, 255, 0.16);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.Zhang_body {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(1200px 800px at 15% -10%, rgba(5, 109, 232, 0.22), transparent 60%),
+    radial-gradient(900px 700px at 95% 10%, rgba(34, 211, 238, 0.12), transparent 55%),
+    linear-gradient(180deg, #060b18 0%, #070d1d 45%, #04070f 100%);
+  color: var(--Zhang_text);
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.Zhang_canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.Zhang_aurora {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  z-index: 0;
+  pointer-events: none;
+  animation: Zhang_float 16s ease-in-out infinite;
+}
+
+.Zhang_aurora--one {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(5, 109, 232, 0.75), transparent 70%);
+}
+
+.Zhang_aurora--two {
+  width: 480px;
+  height: 480px;
+  right: -140px;
+  bottom: -180px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.45), transparent 70%);
+  animation-delay: -6s;
+}
+
+@keyframes Zhang_float {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(24px, -28px, 0) scale(1.08); }
+}
+
+.Zhang_header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 32px 0;
+}
+
+.Zhang_header__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.Zhang_logo {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(140deg, var(--Zhang_blue), #0d8bff);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  box-shadow: 0 10px 26px rgba(5, 109, 232, 0.42);
+}
+
+.Zhang_header__name {
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--Zhang_text);
+}
+
+.Zhang_header__tag {
+  padding: 7px 14px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--Zhang_text-dim);
+  background: rgba(12, 22, 42, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.Zhang_main {
+  position: relative;
+  z-index: 2;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 72px 32px 96px;
+}
+
+.Zhang_hero {
+  max-width: 780px;
+  animation: Zhang_rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.Zhang_hero__eyebrow {
+  margin-bottom: 22px;
+  font-size: 12px;
+  letter-spacing: 0.34em;
+  color: var(--Zhang_cyan);
+  text-transform: uppercase;
+}
+
+.Zhang_hero__title {
+  font-size: clamp(42px, 7vw, 76px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.Zhang_hero__title span {
+  background: linear-gradient(100deg, #4a9dff 0%, #22d3ee 55%, #9ad9ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.Zhang_hero__desc {
+  max-width: 620px;
+  margin-top: 24px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 40px;
+  list-style: none;
+}
+
+.Zhang_meta__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 148px;
+  padding: 16px 20px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(20, 32, 58, 0.72), rgba(10, 18, 34, 0.5));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.Zhang_meta__label {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_meta__value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.Zhang_nav {
+  margin-top: 88px;
+  animation: Zhang_rise 1s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.Zhang_nav__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--Zhang_line);
+}
+
+.Zhang_nav__title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.Zhang_nav__count {
+  font-size: 13px;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_nav__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.Zhang_card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 26px 24px 30px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 18px;
+  background: var(--Zhang_card-bg);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.Zhang_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(420px circle at 50% 0%, rgba(74, 157, 255, 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.Zhang_card:hover,
+.Zhang_card:focus-visible {
+  transform: translateY(-6px);
+  border-color: rgba(74, 157, 255, 0.55);
+  box-shadow: 0 22px 46px rgba(5, 40, 90, 0.55);
+  outline: none;
+}
+
+.Zhang_card:hover::before,
+.Zhang_card:focus-visible::before {
+  opacity: 1;
+}
+
+.Zhang_card__no {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--Zhang_blue-light);
+}
+
+.Zhang_card__title {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.Zhang_card__desc {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_card__arrow {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  font-size: 18px;
+  color: var(--Zhang_blue-light);
+  transition: transform 0.35s ease;
+}
+
+.Zhang_card:hover .Zhang_card__arrow {
+  transform: translateX(5px);
+}
+
+.Zhang_nav__hint {
+  margin-top: 22px;
+  font-size: 13px;
+  color: rgba(141, 155, 181, 0.75);
+}
+
+.Zhang_footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 26px 32px 34px;
+  border-top: 1px solid var(--Zhang_line);
+  font-size: 12px;
+  color: rgba(141, 155, 181, 0.8);
+}
+
+@keyframes Zhang_rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .Zhang_header,
+  .Zhang_main,
+  .Zhang_footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .Zhang_main {
+    padding-top: 48px;
+  }
+
+  .Zhang_header__tag {
+    display: none;
+  }
+
+  .Zhang_meta__item {
+    flex: 1 1 100%;
+  }
+
+  .Zhang_nav {
+    margin-top: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Zhang_aurora,
+  .Zhang_hero,
+  .Zhang_nav {
+    animation: none;
+  }
+
+  .Zhang_card {
+    transition: none;
+  }
+}
