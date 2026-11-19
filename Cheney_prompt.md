@@ -75,3 +75,17 @@
 ```
 
 **大模型名称**：DeepSeek-V4.1-Flash
+
+---
+
+## 2026-11-19
+
+**时间**：2026-11-19
+
+**提示词全文**：
+
+```text
+创建技能 skill：提交到 GitHub，将本项目提交 commit 并 push 到 `https://github.com/zl250/zhangxue.git` ，使用已设置公钥。
+```
+
+**大模型名称**：DeepSeek-V4.1-Flash
