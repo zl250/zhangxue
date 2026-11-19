@@ -186,3 +186,56 @@
   ```
 
 - **修改时间**：2026-11-19
+
+---
+
+## 5. 获取科技图文列表
+
+- **接口路径**：`/api/gallery`
+- **HTTP 方法**：`GET`
+- **请求参数**：无
+
+  示例：
+
+  ```http
+  GET http://localhost:727/api/gallery
+  ```
+
+- **响应格式**：
+
+  成功示例（按创建时间倒序，节选 1 条）：
+
+  ```json
+  {
+    "code": 0,
+    "msg": "获取科技图文列表成功",
+    "data": {
+      "total": 8,
+      "list": [
+        {
+          "Zhang_id": 1,
+          "Zhang_title": "AI 算力中心的一天",
+          "Zhang_desc": "成排的机柜在蓝色冷光中持续运转……",
+          "Zhang_image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=...&image_size=landscape_4_3",
+          "Zhang_tag": "人工智能",
+          "Zhang_likes": 1286,
+          "Zhang_time": "2026-11-19"
+        }
+      ]
+    }
+  }
+  ```
+
+  数据库查询失败：
+
+  ```json
+  {
+    "code": 5003,
+    "msg": "图文数据查询失败，请检查数据库是否已初始化。",
+    "data": {
+      "errorCode": "ER_NO_SUCH_TABLE"
+    }
+  }
+  ```
+
+- **修改时间**：2026-11-19

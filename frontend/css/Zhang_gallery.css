@@ -1,0 +1,280 @@
+/*
+  姓名：张雪 | 学号：24001010727 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+  说明：科技图文列表页样式
+*/
+
+.Zhang_header__link {
+  text-decoration: none;
+  color: var(--Zhang_text-dim);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.Zhang_header__link:hover,
+.Zhang_header__link:focus-visible {
+  color: #fff;
+  border-color: rgba(74, 157, 255, 0.55);
+  outline: none;
+}
+
+.Zhang_galleryMain {
+  position: relative;
+  z-index: 2;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+
+.Zhang_galleryHero {
+  animation: Zhang_rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.Zhang_galleryHero__eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--Zhang_cyan);
+}
+
+.Zhang_galleryHero__title {
+  margin-top: 14px;
+  font-size: clamp(34px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.Zhang_galleryHero__desc {
+  max-width: 640px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_code {
+  padding: 2px 8px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 6px;
+  background: rgba(10, 20, 38, 0.8);
+  color: #9ad9ff;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+}
+
+.Zhang_apiBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 14px 18px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 14px;
+  background: rgba(10, 20, 38, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.Zhang_apiBar__method {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(34, 197, 94, 0.18);
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.Zhang_apiBar__link {
+  color: #9ad9ff;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(154, 217, 255, 0.45);
+  word-break: break-all;
+}
+
+.Zhang_apiBar__link:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+.Zhang_apiBar__hint {
+  font-size: 12px;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_gallerySection {
+  margin-top: 56px;
+  animation: Zhang_rise 1s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.Zhang_gallerySection__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--Zhang_line);
+}
+
+.Zhang_gallerySection__title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.Zhang_gallerySection__count {
+  font-size: 13px;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+  margin-top: 26px;
+}
+
+.Zhang_galleryCard {
+  overflow: hidden;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 18px;
+  background: var(--Zhang_card-bg);
+  backdrop-filter: blur(10px);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.Zhang_galleryCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(74, 157, 255, 0.5);
+  box-shadow: 0 22px 46px rgba(5, 40, 90, 0.5);
+}
+
+.Zhang_galleryCard__figure {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: linear-gradient(140deg, #0d1a30, #0a1222);
+}
+
+.Zhang_galleryCard__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.Zhang_galleryCard:hover .Zhang_galleryCard__img {
+  transform: scale(1.06);
+}
+
+.Zhang_galleryCard__tag {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(6, 14, 28, 0.72);
+  border: 1px solid rgba(74, 157, 255, 0.35);
+  color: #9ad9ff;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(6px);
+}
+
+.Zhang_galleryCard__body {
+  padding: 20px 22px 22px;
+}
+
+.Zhang_galleryCard__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #f2f6ff;
+}
+
+.Zhang_galleryCard__desc {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_galleryCard__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(120, 160, 255, 0.16);
+  font-size: 12px;
+  color: rgba(141, 155, 181, 0.85);
+}
+
+.Zhang_galleryCard__likes {
+  color: #ff9db1;
+}
+
+.Zhang_galleryState {
+  grid-column: 1 / -1;
+  padding: 46px 24px;
+  border: 1px dashed var(--Zhang_line);
+  border-radius: 16px;
+  text-align: center;
+  color: var(--Zhang_text-dim);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.Zhang_galleryState.is-error {
+  border-color: rgba(248, 113, 113, 0.45);
+  color: #fecaca;
+  background: rgba(127, 29, 29, 0.16);
+}
+
+.Zhang_galleryRetry {
+  margin-top: 16px;
+  padding: 10px 22px;
+  border: 1px solid rgba(74, 157, 255, 0.5);
+  border-radius: 10px;
+  background: rgba(5, 109, 232, 0.18);
+  color: #9ad9ff;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.Zhang_galleryRetry:hover {
+  background: rgba(5, 109, 232, 0.32);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .Zhang_galleryMain {
+    padding: 40px 20px 72px;
+  }
+
+  .Zhang_galleryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .Zhang_gallerySection {
+    margin-top: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Zhang_galleryHero,
+  .Zhang_gallerySection {
+    animation: none;
+  }
+
+  .Zhang_galleryCard,
+  .Zhang_galleryCard__img {
+    transition: none;
+  }
+}

@@ -71,3 +71,69 @@ VALUES
 SELECT COUNT(*) AS total FROM Zhang_news;
 -- 结果：10
 ```
+
+---
+
+## 2026-11-19 · 创建科技图文表
+
+```sql
+USE zhihu_db;
+
+CREATE TABLE IF NOT EXISTS Zhang_gallery (
+  Zhang_id INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '图文ID',
+  Zhang_title VARCHAR(120) NOT NULL COMMENT '图文标题',
+  Zhang_desc VARCHAR(400) NOT NULL COMMENT '图文描述',
+  Zhang_image VARCHAR(600) NOT NULL COMMENT '图片地址',
+  Zhang_tag VARCHAR(30) NOT NULL COMMENT '图文标签',
+  Zhang_likes INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '点赞数',
+  Zhang_create_time DATETIME NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (Zhang_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='科技图文列表';
+```
+
+## 2026-11-19 · 插入 8 条科技图文测试数据
+
+```sql
+INSERT INTO Zhang_gallery
+  (Zhang_title, Zhang_desc, Zhang_image, Zhang_tag, Zhang_likes, Zhang_create_time)
+VALUES
+  ('AI 算力中心的一天',
+   '成排的机柜在蓝色冷光中持续运转，散热风扇的低鸣几乎盖过脚步声。这里承载着大模型训练最耗时的那些夜晚。',
+   'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=futuristic%20AI%20data%20center%20with%20glowing%20blue%20server%20racks%2C%20cinematic%20lighting%2C%20photorealistic&image_size=landscape_4_3',
+   '人工智能', 1286, '2026-11-19 10:05:00'),
+  ('指甲盖上的城市',
+   '在显微镜下，芯片的金属互连层层叠叠，像一座被压缩在指甲盖里的城市，每一层布线都精确到纳米。',
+   'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=macro%20shot%20of%20a%20silicon%20chip%20die%20with%20intricate%20circuits%2C%20blue%20glow%2C%20photorealistic&image_size=landscape_4_3',
+   '半导体', 964, '2026-11-18 19:20:00'),
+  ('回收火箭的归途',
+   '一子级在完成分离后调头返回，着陆腿展开的瞬间扬起尘土。可重复使用，正在把发射成本一点点压下来。',
+   'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=reusable%20rocket%20landing%20on%20a%20launch%20pad%20at%20dusk%2C%20dramatic%20sky%2C%20photorealistic&image_size=landscape_4_3',
+   '航空航天', 2417, '2026-11-17 21:40:00'),
+  ('车间里的新同事',
+   '总装车间里，人形机器人承担起搬运与质检辅助任务。它不需要工牌，但同样要打卡上班。',
+   'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=humanoid%20robot%20working%20in%20a%20modern%20car%20factory%2C%20industrial%20lighting%2C%20photorealistic&image_size=landscape_4_3',
+   '机器人', 1735, '2026-11-16 14:15:00'),
+  ('固态电池实验室',
+   '洁净间里，工程师正在测试新一代固态电芯。更高的能量密度背后，是无数次失败与重新配比。',
+   'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=scientist%20in%20a%20cleanroom%20holding%20solid%20state%20battery%20cells%2C%20blue%20light%2C%20photorealistic&image_size=landscape_4_3',
+   '新能源', 842, '2026-11-15 09:30:00'),
+  ('县域里的边缘节点',
+   '集装箱式边缘数据中心被部署到县城，工业质检与远程医疗的数据不再需要长途跋涉。',
+   'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=small%20edge%20data%20center%20container%20in%20a%20county%20town%20at%20dusk%2C%20network%20cables%2C%20photorealistic&image_size=landscape_4_3',
+   '云计算', 597, '2026-11-14 18:00:00'),
+  ('折叠屏的铰链',
+   '钛合金铰链在微距镜头下显出精密的齿轮结构，每一次开合都是一次微米级的配合。',
+   'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=macro%20shot%20of%20a%20titanium%20folding%20phone%20hinge%2C%20precision%20engineering%2C%20photorealistic&image_size=landscape_4_3',
+   '消费电子', 1320, '2026-11-13 11:25:00'),
+  ('零信任的边界',
+   '当网络边界消失，身份成为新的围墙。每一次访问请求，都要重新证明自己值得信任。',
+   'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=abstract%20network%20security%20visualization%20with%20glowing%20shields%20and%20connected%20nodes%2C%20dark%20blue%2C%20high%20detail&image_size=landscape_4_3',
+   '网络安全', 463, '2026-11-12 16:50:00');
+```
+
+## 验证语句
+
+```sql
+SELECT COUNT(*) AS total FROM Zhang_gallery;
+-- 结果：8
+```

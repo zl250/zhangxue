@@ -26,6 +26,7 @@
 │  ├─ index.html             # 首页（项目信息 + 页面导航）
 │  ├─ database.html          # 数据库连接测试页
 │  ├─ news.html              # 科技新闻列表页
+│  ├─ gallery.html           # 科技图文列表页
 │  ├─ css/                   # 样式
 │  ├─ js/                    # 脚本
 │  ├─ fonts/                 # iconfont 图标文件
