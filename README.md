@@ -27,6 +27,7 @@
 │  ├─ database.html          # 数据库连接测试页
 │  ├─ news.html              # 科技新闻列表页
 │  ├─ gallery.html           # 科技图文列表页
+│  ├─ chat.html              # AI 聊天页
 │  ├─ css/                   # 样式
 │  ├─ js/                    # 脚本
 │  ├─ fonts/                 # iconfont 图标文件

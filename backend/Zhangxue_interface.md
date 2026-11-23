@@ -239,3 +239,70 @@
   ```
 
 - **修改时间**：2026-11-19
+
+---
+
+## 6. AI 聊天（转发 DeepSeek）
+
+- **接口路径**：`/api/ai/chat`
+- **HTTP 方法**：`POST`
+- **请求参数**：JSON 请求体
+
+  | 字段 | 类型 | 必填 | 说明 |
+  | --- | --- | --- | --- |
+  | messages | Array | 是 | 对话消息数组，1–20 条，最后一条必须是 user |
+  | messages[].role | String | 是 | `user` 或 `assistant` |
+  | messages[].content | String | 是 | 消息内容，单条不超过 2000 字符 |
+
+  示例：
+
+  ```json
+  {
+    "messages": [
+      { "role": "user", "content": "你好，请介绍一下你自己" }
+    ]
+  }
+  ```
+
+- **响应格式**：
+
+  成功示例：
+
+  ```json
+  {
+    "code": 0,
+    "msg": "AI 回复成功",
+    "data": {
+      "reply": "你好，我是知乎风格的 AI 助手……",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "usage": {
+        "prompt_tokens": 32,
+        "completion_tokens": 48,
+        "total_tokens": 80
+      }
+    }
+  }
+  ```
+
+  参数错误：
+
+  ```json
+  {
+    "code": 400,
+    "msg": "最后一条消息必须来自用户。",
+    "data": null
+  }
+  ```
+
+  密钥无效：
+
+  ```json
+  {
+    "code": 5004,
+    "msg": "API 密钥无效，请检查 backend/.env 中的 SILICONFLOW_API_KEY。",
+    "data": null
+  }
+  ```
+
+- **说明**：服务端在调用大模型前后分别用 `console.log` 输出完整请求体与返回体；密钥只保存在 `backend/.env`，不下发到前端。
+- **修改时间**：2026-11-23

@@ -99,3 +99,30 @@
 **提示词全文**：同上（重复触发）
 
 **大模型名称**：DeepSeek-V4.1-Flash
+
+---
+
+## 2026-11-23
+
+**时间**：2026-11-23
+
+**提示词全文**：
+
+```text
+创建AI聊天页面。
+Api-key：sk-dfifvwhmwjoihbwnjqanbjrimjgudavpagxyfzrhztcnhtnt
+curl --request POST \
+  --url `https://api.siliconflow.cn/v1/chat/completions` \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "messages": [
+      {"role": "system", "content": "你是一个有用的助手"},
+      {"role": "user", "content": "你好，请介绍一下你自己"}
+    ]
+  }'
+在控制台里输出发送给大模型的数据和从大模型接收到的数据。
+```
+
+**大模型名称**：DeepSeek-V4.1-Flash

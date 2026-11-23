@@ -1,0 +1,81 @@
+<!--
+  姓名：张雪 | 学号：24001010727 | 时间：2026-11-23 | 大模型：DeepSeek-V4.1-Flash
+  说明：AI 聊天页面，通过后端接口调用 SiliconFlow 的 DeepSeek 模型
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 对话 | 知乎的模仿与创作</title>
+  <meta name="description" content="张雪的知乎模仿项目：AI 聊天页面">
+  <link rel="stylesheet" href="css/Zhang_index.css">
+  <link rel="stylesheet" href="css/Zhang_chat.css">
+</head>
+<body class="Zhang_body">
+  <canvas id="Zhang_canvas" class="Zhang_canvas" aria-hidden="true"></canvas>
+  <div class="Zhang_aurora Zhang_aurora--one" aria-hidden="true"></div>
+  <div class="Zhang_aurora Zhang_aurora--two" aria-hidden="true"></div>
+
+  <header class="Zhang_header">
+    <div class="Zhang_header__brand">
+      <span class="Zhang_logo">知</span>
+      <span class="Zhang_header__name">知乎 · 模仿与创作</span>
+    </div>
+    <a class="Zhang_header__tag Zhang_header__link" href="index.html">返回首页</a>
+  </header>
+
+  <main class="Zhang_chatMain">
+    <section class="Zhang_chatHero">
+      <p class="Zhang_chatHero__eyebrow">AI CHAT · SILICONFLOW</p>
+      <h1 class="Zhang_chatHero__title">AI 对话</h1>
+      <p class="Zhang_chatHero__desc">
+        消息由后端转发至 DeepSeek 模型，密钥仅保存在服务端，发送与接收的完整数据都会输出到控制台。
+      </p>
+
+      <div class="Zhang_apiBar">
+        <span class="Zhang_apiBar__method Zhang_apiBar__method--post">POST</span>
+        <a class="Zhang_apiBar__link" href="/api/ai/chat" target="_blank" rel="noopener">
+          http://localhost:727/api/ai/chat
+        </a>
+        <span class="Zhang_apiBar__hint">接口需以 POST + JSON 调用</span>
+      </div>
+    </section>
+
+    <section class="Zhang_chatPanel" aria-label="AI 聊天窗口">
+      <div class="Zhang_chatPanel__head">
+        <div class="Zhang_chatPanel__who">
+          <span class="Zhang_chatPanel__avatar">AI</span>
+          <div>
+            <p class="Zhang_chatPanel__name">知乎 AI 助手</p>
+            <p class="Zhang_chatPanel__state" id="Zhang_chatState">在线 · 随时可以提问</p>
+          </div>
+        </div>
+        <button class="Zhang_chatClear" id="Zhang_chatClear" type="button">清空对话</button>
+      </div>
+
+      <div class="Zhang_chatMessages" id="Zhang_chatMessages" aria-live="polite"></div>
+
+      <form class="Zhang_chatInput" id="Zhang_chatForm">
+        <textarea
+          class="Zhang_chatInput__field"
+          id="Zhang_chatField"
+          rows="2"
+          maxlength="2000"
+          placeholder="输入你的问题，Enter 发送，Shift + Enter 换行…"
+          aria-label="输入消息"
+        ></textarea>
+        <button class="Zhang_chatSend" id="Zhang_chatSend" type="submit">发送</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="Zhang_footer">
+    <span>张雪 · 24001010727 · 知乎的模仿与创作</span>
+    <span class="Zhang_footer__year">2026</span>
+  </footer>
+
+  <script src="js/Zhang_canvas.js"></script>
+  <script src="js/Zhang_chat.js"></script>
+</body>
+</html>
