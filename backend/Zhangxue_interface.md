@@ -487,3 +487,123 @@
 - **说明**：服务端在调用大模型前后分别用 `console.log` 输出 `[发送给大模型]` 的完整请求体与 `[大模型返回]` 的完整响应体，
   便于核对提示词与引用资料。
 - **修改时间**：2026-11-23
+
+---
+
+## Harness Engineering 接口
+
+### 1. 商业评论结构化抽取
+
+- **接口路径**：`/api/harness/analyze`
+- **HTTP 方法**：`POST`
+- **请求参数**：JSON 请求体。
+
+  | 字段 | 类型 | 必填 | 说明 |
+  | --- | --- | --- | --- |
+  | text | string | 是 | 商业评论原文，最长 2000 字符 |
+
+  示例：
+
+  ```json
+  { "text": "物流很快，音质不错，但是包装有点破损，客服处理及时。" }
+  ```
+
+- **响应格式**：
+
+  ```json
+  {
+    "code": 0,
+    "msg": "结构化抽取成功",
+    "data": {
+      "meta": {
+        "textLength": 26,
+        "model": "deepseek-ai/DeepSeek-V4-Flash",
+        "elapsedMs": 9529,
+        "usage": { "prompt_tokens": 315, "completion_tokens": 1149, "total_tokens": 1464 }
+      },
+      "result": {
+        "sentiment": "positive",
+        "sentimentScore": 0.7,
+        "confidence": 0.9,
+        "summary": "物流快音质好，但包装破损，客服处理及时。",
+        "aspects": [
+          { "aspect": "物流", "sentiment": "positive", "score": 0.9, "evidence": "物流很快" },
+          { "aspect": "包装", "sentiment": "negative", "score": 0.2, "evidence": "包装有点破损" }
+        ],
+        "entities": [],
+        "keywords": ["物流", "音质", "包装", "破损", "客服", "处理"],
+        "complaint": {
+          "hasComplaint": true,
+          "type": "包装",
+          "urgency": "medium",
+          "evidence": "包装有点破损"
+        }
+      }
+    }
+  }
+  ```
+
+  参数错误：
+
+  ```json
+  { "code": 6002, "msg": "text 不能为空，请提供要抽取的商业评论文本。", "data": null }
+  ```
+
+- **说明**：调用 DeepSeek 并开启 JSON 模式，提示词固定 JSON 结构，返回前再统一裁剪分数、
+  兜底默认值并过滤空实体，保证结构稳定。控制台输出 `[发送给大模型]`、`[大模型返回]`、`[结构化结果]`。
+- **修改时间**：2026-11-23
+
+### 2. 图像识别 / OCR
+
+- **接口路径**：`/api/vision/analyze`
+- **HTTP 方法**：`POST`
+- **请求参数**：`multipart/form-data`，表单字段名 `image`，仅支持 `image/*`，不超过 8MB。
+
+  示例：
+
+  ```bash
+  curl -X POST http://localhost:727/api/vision/analyze \
+    -F "image=@backend/samples/商品评价截图.png"
+  ```
+
+- **响应格式**：
+
+  ```json
+  {
+    "code": 0,
+    "msg": "图像识别成功",
+    "data": {
+      "meta": {
+        "model": "Qwen/Qwen3-VL-30B-A3B-Instruct",
+        "elapsedMs": 10918,
+        "usage": { "prompt_tokens": 747, "completion_tokens": 362, "total_tokens": 1109 },
+        "fileName": "商品评价截图.png",
+        "size": 53691,
+        "mime": "image/png"
+      },
+      "result": {
+        "type": "mixed",
+        "title": "商品评价截图",
+        "description": "一张商品评价截图，显示降噪蓝牙耳机Pro的订单信息和用户评价。",
+        "language": "zh",
+        "ocrText": "商品评价截图\n商品：降噪蓝牙耳机 Pro\n订单号：ZX20261123\n金额：¥128.50",
+        "textBlocks": [
+          { "text": "商品评价截图", "type": "标题" },
+          { "text": "金额：¥128.50", "type": "正文" }
+        ],
+        "objects": [],
+        "keywords": ["商品评价", "降噪蓝牙耳机", "订单号", "评分", "物流"]
+      }
+    }
+  }
+  ```
+
+  文件类型错误：
+
+  ```json
+  { "code": 6005, "msg": "只支持上传图片文件（image/*）。", "data": null }
+  ```
+
+- **说明**：图片以 base64 Data URL 传给视觉模型 `Qwen/Qwen3-VL-30B-A3B-Instruct`，
+  返回内容解析为固定 JSON 结构并做字段归一化。控制台输出 `[发送给大模型]`、`[大模型返回]`、`[图像结构化结果]`。
+- **修改时间**：2026-11-23

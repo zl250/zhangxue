@@ -1,0 +1,118 @@
+<!--
+  姓名：张雪 | 学号：24001010727 | 时间：2026-11-23 | 大模型：DeepSeek-V4.1-Flash
+  说明：Harness Engineering 页面，商业评论结构化抽取与图像识别/OCR
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 结构化抽取 | 知乎的模仿与创作</title>
+  <meta name="description" content="张雪的知乎模仿项目：商业评论情感与实体抽取、图像识别与 OCR">
+  <link rel="stylesheet" href="css/Zhang_index.css">
+  <link rel="stylesheet" href="css/Zhang_harness.css">
+</head>
+<body class="Zhang_body">
+  <canvas id="Zhang_canvas" class="Zhang_canvas" aria-hidden="true"></canvas>
+  <div class="Zhang_aurora Zhang_aurora--one" aria-hidden="true"></div>
+  <div class="Zhang_aurora Zhang_aurora--two" aria-hidden="true"></div>
+
+  <header class="Zhang_header">
+    <div class="Zhang_header__brand">
+      <span class="Zhang_logo">知</span>
+      <span class="Zhang_header__name">知乎 · 模仿与创作</span>
+    </div>
+    <a class="Zhang_header__tag Zhang_header__link" href="index.html">返回首页</a>
+  </header>
+
+  <main class="Zhang_hxMain">
+    <section class="Zhang_hxHero">
+      <p class="Zhang_hxHero__eyebrow">HARNESS ENGINEERING · STRUCTURED JSON</p>
+      <h1 class="Zhang_hxHero__title">AI 结构化抽取</h1>
+      <p class="Zhang_hxHero__desc">
+        把自然语言商业评论转成固定结构的 JSON：情感极性、方面词、实体、关键词与投诉信息；
+        同时支持上传图片，调用视觉大模型完成图像识别与 OCR。发送给大模型和接收到的完整数据都会输出到控制台。
+      </p>
+
+      <div class="Zhang_apiBar">
+        <span class="Zhang_apiBar__method Zhang_apiBar__method--post">POST</span>
+        <a class="Zhang_apiBar__link" href="/api/harness/analyze" target="_blank" rel="noopener">
+          /api/harness/analyze
+        </a>
+        <span class="Zhang_apiBar__hint">JSON 字段 text</span>
+        <span class="Zhang_apiBar__method Zhang_apiBar__method--post">POST</span>
+        <a class="Zhang_apiBar__link" href="/api/vision/analyze" target="_blank" rel="noopener">
+          /api/vision/analyze
+        </a>
+        <span class="Zhang_apiBar__hint">表单字段 image</span>
+      </div>
+    </section>
+
+    <div class="Zhang_hxLayout">
+      <section class="Zhang_hxPanel" aria-label="商业评论结构化抽取">
+        <div class="Zhang_hxPanel__head">
+          <div>
+            <h2 class="Zhang_hxPanel__title">商业评论抽取</h2>
+            <p class="Zhang_hxPanel__sub">情感分类 · 方面词 · 实体抽取 · 投诉识别</p>
+          </div>
+        </div>
+
+        <div class="Zhang_hxSamples" id="Zhang_hxSamples">
+          <button class="Zhang_hxSample" type="button">物流很快，音质不错，但是包装有点破损，客服处理及时。</button>
+          <button class="Zhang_hxSample" type="button">耳机用了两天就断连，客服一直不回复，非常失望，申请退款。</button>
+          <button class="Zhang_hxSample" type="button">价格中规中矩，功能和描述一致，暂时没有发现问题。</button>
+        </div>
+
+        <form class="Zhang_hxForm" id="Zhang_hxReviewForm">
+          <textarea class="Zhang_hxField" id="Zhang_hxReviewText" rows="5" maxlength="2000"
+                    placeholder="粘贴一段商业评论，例如：物流很快，音质不错，但包装有点破损…"
+                    aria-label="商业评论原文"></textarea>
+          <div class="Zhang_hxForm__foot">
+            <span class="Zhang_hxForm__hint" id="Zhang_hxReviewHint">0 / 2000</span>
+            <button class="Zhang_hxBtn" id="Zhang_hxReviewBtn" type="submit">开始抽取</button>
+          </div>
+        </form>
+
+        <div class="Zhang_hxResult" id="Zhang_hxReviewResult">
+          <p class="Zhang_hxPlaceholder">抽取结果会以 JSON 结构展示在这里。</p>
+        </div>
+      </section>
+
+      <section class="Zhang_hxPanel" aria-label="图像识别与 OCR">
+        <div class="Zhang_hxPanel__head">
+          <div>
+            <h2 class="Zhang_hxPanel__title">图像识别 / OCR</h2>
+            <p class="Zhang_hxPanel__sub">视觉大模型 · 文字提取 · 物体识别</p>
+          </div>
+        </div>
+
+        <label class="Zhang_hxDrop" id="Zhang_hxDrop" for="Zhang_hxImage">
+          <span class="Zhang_hxDrop__icon" aria-hidden="true">＋</span>
+          <span class="Zhang_hxDrop__title">点击选择图片，或把图片拖到这里</span>
+          <span class="Zhang_hxDrop__hint">支持 JPG / PNG / WEBP，单张不超过 8MB</span>
+          <input class="Zhang_hxDrop__input" id="Zhang_hxImage" type="file" accept="image/*">
+        </label>
+
+        <div class="Zhang_hxPreview" id="Zhang_hxPreview"></div>
+
+        <div class="Zhang_hxForm__foot Zhang_hxForm__foot--image">
+          <span class="Zhang_hxForm__hint" id="Zhang_hxImageHint">尚未选择图片</span>
+          <button class="Zhang_hxBtn" id="Zhang_hxImageBtn" type="button" disabled>识别图片</button>
+        </div>
+
+        <div class="Zhang_hxResult" id="Zhang_hxImageResult">
+          <p class="Zhang_hxPlaceholder">上传图片后点击“识别图片”，这里会显示 OCR 与识别结果。</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="Zhang_footer">
+    <span>张雪 · 24001010727 · 知乎的模仿与创作</span>
+    <span class="Zhang_footer__year">2026</span>
+  </footer>
+
+  <script src="js/Zhang_canvas.js"></script>
+  <script src="js/Zhang_harness.js"></script>
+</body>
+</html>

@@ -142,3 +142,18 @@ curl --request POST \
 **大模型名称**：DeepSeek-V4.1-Flash
 
 ---
+
+## 2026-11-23
+
+**时间**：2026-11-23 19:09
+
+**提示词全文**：
+
+```text
+Harness Engineering：如商业评论情感分类、实体抽取等，将自然语言转化为结构化 JSON 数据，先设计返回的JSON数据。
+基于LLM API调用的自选题目（如ocr、图像识别、录音和语音识别）。
+```
+
+**大模型名称**：DeepSeek-V4.1-Flash
+
+---

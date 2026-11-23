@@ -14,6 +14,7 @@ const Zhang_newsRoutes = require("./routes/Zhang_newsRoutes");
 const Zhang_galleryRoutes = require("./routes/Zhang_galleryRoutes");
 const Zhang_aiRoutes = require("./routes/Zhang_aiRoutes");
 const Zhang_kbRoutes = require("./routes/Zhang_kbRoutes");
+const Zhang_harnessRoutes = require("./routes/Zhang_harnessRoutes");
 
 const Zhang_app = Zhang_express();
 const Zhang_PORT = 727;
@@ -28,6 +29,7 @@ Zhang_app.use("/api", Zhang_newsRoutes);
 Zhang_app.use("/api", Zhang_galleryRoutes);
 Zhang_app.use("/api", Zhang_aiRoutes);
 Zhang_app.use("/api", Zhang_kbRoutes);
+Zhang_app.use("/api", Zhang_harnessRoutes);
 
 Zhang_app.use(
   Zhang_express.static(Zhang_path.join(__dirname, "..", "frontend"))
