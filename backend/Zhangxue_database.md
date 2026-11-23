@@ -137,3 +137,74 @@ VALUES
 SELECT COUNT(*) AS total FROM Zhang_gallery;
 -- 结果：8
 ```
+
+---
+
+## 2026-11-23 · 创建知识库文档表与分块表（RAG）
+
+```sql
+USE zhihu_db;
+
+CREATE TABLE IF NOT EXISTS Zhang_kb_document (
+  Zhang_id INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  Zhang_name VARCHAR(200) NOT NULL COMMENT '原始文件名',
+  Zhang_ext VARCHAR(10) NOT NULL COMMENT '扩展名',
+  Zhang_size INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '文件字节数',
+  Zhang_chunk_count INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '分块数量',
+  Zhang_char_count INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '字符总数',
+  Zhang_path VARCHAR(255) NOT NULL DEFAULT '' COMMENT '服务器存储路径',
+  Zhang_status VARCHAR(20) NOT NULL DEFAULT 'ready' COMMENT '状态',
+  Zhang_created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
+  PRIMARY KEY (Zhang_id),
+  KEY Zhang_idx_created (Zhang_created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='知识库文档';
+
+CREATE TABLE IF NOT EXISTS Zhang_kb_chunk (
+  Zhang_id INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分块ID',
+  Zhang_doc_id INT UNSIGNED NOT NULL COMMENT '所属文档ID',
+  Zhang_index INT UNSIGNED NOT NULL COMMENT '分块序号',
+  Zhang_content TEXT NOT NULL COMMENT '分块文本',
+  Zhang_embedding LONGTEXT NULL COMMENT '向量 JSON 数组',
+  Zhang_created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (Zhang_id),
+  KEY Zhang_idx_doc (Zhang_doc_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='知识库文本分块';
+```
+
+补充字段语句（若已按旧结构建表，可执行）：
+
+```sql
+ALTER TABLE Zhang_kb_document
+  ADD COLUMN Zhang_path VARCHAR(255) NOT NULL DEFAULT '' AFTER Zhang_char_count;
+```
+
+## 2026-11-23 · 知识库测试数据
+
+两个知识库文件位于 `backend/samples/`，通过 `POST /api/kb/upload` 上传后写入以下记录：
+
+```sql
+INSERT INTO Zhang_kb_document
+  (Zhang_name, Zhang_ext, Zhang_size, Zhang_char_count, Zhang_chunk_count, Zhang_path, Zhang_status)
+VALUES
+  ('张雪知乎项目技术说明书.docx', '.docx', 39441, 2274, 6, 'backend/uploads/kb_1795414055341_tdw9ws.docx', 'ready'),
+  ('知乎社区运营与内容规范.pptx', '.pptx', 38048, 737, 2, 'backend/uploads/kb_1795414060788_upoj3i.pptx', 'ready');
+```
+
+说明：`Zhang_kb_chunk` 中的文本分块与 1024 维向量由上传接口自动生成（BAAI/bge-m3），
+无法手工编写。在新机器上重建时，先执行上面的建表语句，再通过知识库页面重新上传
+`backend/samples/` 下的两个文件，即可恢复 8 条分块数据。
+
+## 验证语句
+
+```sql
+SELECT COUNT(*) AS docs FROM Zhang_kb_document;
+-- 结果：2
+
+SELECT COUNT(*) AS chunks FROM Zhang_kb_chunk;
+-- 结果：8
+
+SELECT Zhang_doc_id, COUNT(*) AS total
+FROM Zhang_kb_chunk GROUP BY Zhang_doc_id;
+-- 结果：1 → 6，2 → 2
+```
+

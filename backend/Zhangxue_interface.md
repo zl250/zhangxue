@@ -306,3 +306,184 @@
 
 - **说明**：服务端在调用大模型前后分别用 `console.log` 输出完整请求体与返回体；密钥只保存在 `backend/.env`，不下发到前端。
 - **修改时间**：2026-11-23
+
+---
+
+## 知识库 RAG 接口
+
+### 1. 上传知识库文件
+
+- **接口路径**：`/api/kb/upload`
+- **HTTP 方法**：`POST`
+- **请求参数**：`multipart/form-data`，表单字段名 `file`，支持 `.doc`、`.docx`、`.ppt`、`.pptx`、`.pdf`、`.txt`、`.md`，单个文件不超过 20MB。
+
+  示例：
+
+  ```bash
+  curl -X POST http://localhost:727/api/kb/upload \
+    -F "file=@backend/samples/张雪知乎项目技术说明书.docx"
+  ```
+
+- **响应格式**：
+
+  成功示例：
+
+  ```json
+  {
+    "code": 0,
+    "msg": "上传并入库成功",
+    "data": {
+      "id": 1,
+      "name": "张雪知乎项目技术说明书.docx",
+      "ext": ".docx",
+      "size": 39441,
+      "charCount": 2274,
+      "chunkCount": 6,
+      "preview": "张雪知乎全栈项目技术说明书…"
+    }
+  }
+  ```
+
+  类型不支持：
+
+  ```json
+  {
+    "code": 4002,
+    "msg": "不支持的文件类型：.xlsx。仅支持 doc、docx、ppt、pptx、pdf、txt、md。",
+    "data": null
+  }
+  ```
+
+- **说明**：后端依次完成文件文本解析、约 480 字/块（重叠 80 字）分块、调用 `BAAI/bge-m3` 向量化，
+  并把文档与分块写入 `Zhang_kb_document`、`Zhang_kb_chunk`。
+- **修改时间**：2026-11-23
+
+### 2. 获取知识库文档列表
+
+- **接口路径**：`/api/kb/documents`
+- **HTTP 方法**：`GET`
+- **请求参数**：无
+
+  示例：
+
+  ```http
+  GET http://localhost:727/api/kb/documents
+  ```
+
+- **响应格式**：
+
+  ```json
+  {
+    "code": 0,
+    "msg": "获取知识库文档成功",
+    "data": {
+      "total": 2,
+      "totalChunks": 8,
+      "documents": [
+        {
+          "id": 2,
+          "name": "知乎社区运营与内容规范.pptx",
+          "ext": ".pptx",
+          "size": 38048,
+          "charCount": 737,
+          "chunkCount": 2,
+          "time": "2026-11-23 14:07"
+        }
+      ]
+    }
+  }
+  ```
+
+- **修改时间**：2026-11-23
+
+### 3. 删除知识库文档
+
+- **接口路径**：`/api/kb/documents/:id`
+- **HTTP 方法**：`DELETE`
+- **请求参数**：路径参数 `id` 为文档 ID。
+
+  示例：
+
+  ```http
+  DELETE http://localhost:727/api/kb/documents/2
+  ```
+
+- **响应格式**：
+
+  成功示例：
+
+  ```json
+  {
+    "code": 0,
+    "msg": "文档及其分块已删除",
+    "data": { "id": 2 }
+  }
+  ```
+
+  不存在：
+
+  ```json
+  {
+    "code": 4041,
+    "msg": "文档不存在或已被删除。",
+    "data": null
+  }
+  ```
+
+- **说明**：删除文档记录、全部关联分块，并清理 `backend/uploads/` 中的原始文件。
+- **修改时间**：2026-11-23
+
+### 4. 基于知识库的问答
+
+- **接口路径**：`/api/kb/ask`
+- **HTTP 方法**：`POST`
+- **请求参数**：JSON 请求体。
+
+  | 字段 | 类型 | 必填 | 说明 |
+  | --- | --- | --- | --- |
+  | question | string | 是 | 用户问题，最长 500 字符 |
+  | topK | number | 否 | 检索片段数量，默认 4，范围 1–8 |
+
+  示例：
+
+  ```json
+  {
+    "question": "知识库问答的检索流程是怎样的？",
+    "topK": 4
+  }
+  ```
+
+- **响应格式**：
+
+  成功示例：
+
+  ```json
+  {
+    "code": 0,
+    "msg": "知识库问答成功",
+    "data": {
+      "answer": "先对问题向量化，再与全部分块计算余弦相似度，取最相似的 4 段资料注入提示词，最后由 DeepSeek 生成回答。",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "usage": { "prompt_tokens": 1035, "completion_tokens": 493, "total_tokens": 1528 },
+      "sources": [
+        {
+          "docId": 1,
+          "name": "张雪知乎项目技术说明书.docx",
+          "chunkIndex": 4,
+          "score": 0.5967,
+          "content": "文本分块参数：每块约 480 个字符…"
+        }
+      ]
+    }
+  }
+  ```
+
+  知识库为空：
+
+  ```json
+  { "code": 4004, "msg": "知识库中还没有任何内容，请先上传文件。", "data": null }
+  ```
+
+- **说明**：服务端在调用大模型前后分别用 `console.log` 输出 `[发送给大模型]` 的完整请求体与 `[大模型返回]` 的完整响应体，
+  便于核对提示词与引用资料。
+- **修改时间**：2026-11-23

@@ -14,6 +14,14 @@
 | 前端 | 原生 HTML / CSS / JavaScript，Canvas 背景动画 |
 | 后端 | Node.js + Express，端口 727，接口前缀 `/api/` |
 | 数据库 | MySQL |
+| AI | SiliconFlow：DeepSeek-V4-Flash（对话）、BAAI/bge-m3（向量） |
+
+## 功能模块
+
+- 首页、数据库连接、科技新闻、科技图文
+- AI 对话：后端转发 DeepSeek，控制台输出发送与接收的完整数据
+- 知识库问答（RAG）：上传 doc / docx / ppt / pptx / pdf / txt / md 文件，自动解析、分块、向量化，
+  提问时按余弦相似度检索 Top 4 片段，再交给大模型生成带引用来源的回答；支持文档列表与删除
 
 ## 目录结构
 
@@ -28,6 +36,7 @@
 │  ├─ news.html              # 科技新闻列表页
 │  ├─ gallery.html           # 科技图文列表页
 │  ├─ chat.html              # AI 聊天页
+│  ├─ kb.html                # 知识库问答页（上传 / 管理 / 问答）
 │  ├─ css/                   # 样式
 │  ├─ js/                    # 脚本
 │  ├─ fonts/                 # iconfont 图标文件
@@ -38,7 +47,9 @@
    ├─ controllers/           # 控制器
    ├─ models/                # 数据模型
    ├─ routes/                # 路由
-   ├─ .env                   # 数据库凭据（不提交）
+   ├─ samples/               # 两个知识库示例文件（docx / pptx）
+   ├─ uploads/               # 知识库上传文件（不提交）
+   ├─ .env                   # 数据库与 API 密钥（不提交）
    ├─ Zhangxue_interface.md  # 接口文档
    └─ Zhangxue_database.md   # 数据库文档
 ```
@@ -52,13 +63,17 @@
    cnpm install
    ```
 
-2. 在 `backend/.env` 中配置数据库连接：
+2. 在 `backend/.env` 中配置数据库连接与 API 密钥：
 
    ```
    DB_USER=你的用户名
    DB_PASSWORD=你的密码
    DB_HOST=localhost
    DB_NAME=你的数据库名
+   SILICONFLOW_API_KEY=你的密钥
+   SILICONFLOW_BASE_URL=https://api.siliconflow.cn/v1
+   SILICONFLOW_MODEL=deepseek-ai/DeepSeek-V4-Flash
+   SILICONFLOW_EMBED_MODEL=BAAI/bge-m3
    ```
 
 3. 启动服务：

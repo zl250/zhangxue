@@ -2,6 +2,9 @@
 node_modules/
 .env
 
+# 知识库上传文件
+backend/uploads/
+
 # 日志
 *.log
 npm-debug.log*

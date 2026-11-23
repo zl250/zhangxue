@@ -1,0 +1,541 @@
+/*
+  姓名：张雪 | 学号：24001010727 | 时间：2026-11-23 | 大模型：DeepSeek-V4.1-Flash
+  说明：知识库问答页面样式
+*/
+
+.Zhang_header__link {
+  text-decoration: none;
+  color: var(--Zhang_text-dim);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.Zhang_header__link:hover,
+.Zhang_header__link:focus-visible {
+  color: #fff;
+  border-color: rgba(74, 157, 255, 0.55);
+  outline: none;
+}
+
+.Zhang_kbMain {
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 32px 88px;
+}
+
+.Zhang_kbHero {
+  animation: Zhang_rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.Zhang_kbHero__eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--Zhang_cyan);
+}
+
+.Zhang_kbHero__title {
+  margin-top: 14px;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.Zhang_kbHero__desc {
+  max-width: 720px;
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_apiBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 12px 18px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 14px;
+  background: rgba(10, 20, 38, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.Zhang_apiBar__method {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(34, 197, 94, 0.18);
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.Zhang_apiBar__method--post {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+.Zhang_apiBar__link {
+  color: #9ad9ff;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(154, 217, 255, 0.45);
+  word-break: break-all;
+}
+
+.Zhang_apiBar__link:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+.Zhang_apiBar__hint {
+  font-size: 12px;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_kbLayout {
+  display: grid;
+  grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+  align-items: start;
+}
+
+.Zhang_kbPanel {
+  border: 1px solid var(--Zhang_line);
+  border-radius: 20px;
+  background: rgba(10, 20, 38, 0.72);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  animation: Zhang_rise 1s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.Zhang_kbPanel--ask {
+  animation-delay: 0.18s;
+}
+
+.Zhang_kbPanel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--Zhang_line);
+  background: rgba(8, 16, 30, 0.6);
+}
+
+.Zhang_kbPanel__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f2f6ff;
+}
+
+.Zhang_kbPanel__sub {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_kbRefresh {
+  padding: 7px 14px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--Zhang_text-dim);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.Zhang_kbRefresh:hover {
+  color: #fff;
+  border-color: rgba(74, 157, 255, 0.5);
+}
+
+.Zhang_kbDrop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 18px;
+  padding: 26px 18px;
+  border: 1px dashed rgba(120, 160, 255, 0.35);
+  border-radius: 16px;
+  background: rgba(8, 18, 34, 0.55);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+.Zhang_kbDrop:hover,
+.Zhang_kbDrop:focus-within,
+.Zhang_kbDrop.Zhang_kbDrop--over {
+  border-color: rgba(74, 157, 255, 0.75);
+  background: rgba(14, 30, 56, 0.8);
+  transform: translateY(-1px);
+}
+
+.Zhang_kbDrop__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.Zhang_kbDrop__icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #056de8, #22d3ee);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.Zhang_kbDrop__title {
+  font-size: 14px;
+  color: #dfe9ff;
+}
+
+.Zhang_kbDrop__hint {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_kbDrop.Zhang_kbDrop--busy {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.Zhang_kbStatus {
+  min-height: 18px;
+  margin: 0 18px 8px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_kbStatus.Zhang_kbStatus--ok {
+  color: #4ade80;
+}
+
+.Zhang_kbStatus.Zhang_kbStatus--error {
+  color: #fca5a5;
+}
+
+.Zhang_kbDocs {
+  list-style: none;
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 0 18px 18px;
+}
+
+.Zhang_kbDocs::-webkit-scrollbar {
+  width: 6px;
+}
+
+.Zhang_kbDocs::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(120, 160, 255, 0.25);
+}
+
+.Zhang_kbDoc {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 12px;
+  background: rgba(8, 16, 30, 0.5);
+  animation: Zhang_rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.Zhang_kbDoc + .Zhang_kbDoc {
+  margin-top: 10px;
+}
+
+.Zhang_kbDoc__ext {
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(5, 109, 232, 0.18);
+  border: 1px solid rgba(74, 157, 255, 0.28);
+  color: #9ad9ff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.Zhang_kbDoc__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.Zhang_kbDoc__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e8eefc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Zhang_kbDoc__meta {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_kbDoc__del {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 8px;
+  background: rgba(127, 29, 29, 0.18);
+  color: #fca5a5;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.Zhang_kbDoc__del:hover {
+  background: rgba(185, 28, 28, 0.35);
+  color: #fff;
+}
+
+.Zhang_kbDocs__empty {
+  padding: 14px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--Zhang_text-dim);
+  text-align: center;
+}
+
+.Zhang_kbSamples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 22px 0;
+}
+
+.Zhang_kbSample {
+  padding: 6px 12px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 999px;
+  background: rgba(8, 18, 34, 0.6);
+  color: #a9c8ff;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.Zhang_kbSample:hover {
+  border-color: rgba(74, 157, 255, 0.6);
+  color: #fff;
+}
+
+.Zhang_kbAnswer {
+  min-height: 280px;
+  max-height: 46vh;
+  overflow-y: auto;
+  padding: 20px 22px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #dfe9ff;
+}
+
+.Zhang_kbAnswer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.Zhang_kbAnswer::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(120, 160, 255, 0.25);
+}
+
+.Zhang_kbAnswer__placeholder {
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_kbAnswer__text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.Zhang_kbAnswer__meta {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--Zhang_text-dim);
+}
+
+.Zhang_kbSources {
+  margin-top: 18px;
+  border-top: 1px dashed var(--Zhang_line);
+  padding-top: 14px;
+}
+
+.Zhang_kbSources__title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--Zhang_cyan);
+}
+
+.Zhang_kbSource {
+  margin-top: 10px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 10px;
+  background: rgba(8, 16, 30, 0.55);
+  overflow: hidden;
+}
+
+.Zhang_kbSource__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: #cddcff;
+  font-size: 12px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.Zhang_kbSource__head:hover {
+  color: #fff;
+}
+
+.Zhang_kbSource__score {
+  flex: 0 0 auto;
+  color: #4ade80;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.Zhang_kbSource__content {
+  display: none;
+  padding: 0 12px 12px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--Zhang_text-dim);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.Zhang_kbSource.Zhang_kbSource--open .Zhang_kbSource__content {
+  display: block;
+}
+
+.Zhang_kbAsk {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 16px 18px;
+  border-top: 1px solid var(--Zhang_line);
+  background: rgba(8, 16, 30, 0.6);
+}
+
+.Zhang_kbAsk__field {
+  flex: 1;
+  max-height: 140px;
+  padding: 12px 16px;
+  border: 1px solid var(--Zhang_line);
+  border-radius: 12px;
+  background: rgba(6, 13, 26, 0.85);
+  color: #eef4ff;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  resize: none;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.Zhang_kbAsk__field:focus {
+  border-color: rgba(74, 157, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(5, 109, 232, 0.16);
+}
+
+.Zhang_kbAsk__field::placeholder {
+  color: rgba(141, 155, 181, 0.6);
+}
+
+.Zhang_kbAsk__send {
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #056de8, #22a7f0);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+}
+
+.Zhang_kbAsk__send:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(5, 109, 232, 0.35);
+}
+
+.Zhang_kbAsk__send:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.Zhang_kbErr {
+  color: #fca5a5;
+}
+
+@media (max-width: 900px) {
+  .Zhang_kbLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .Zhang_kbDocs {
+    max-height: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .Zhang_kbMain {
+    padding: 36px 18px 64px;
+  }
+
+  .Zhang_kbAnswer {
+    max-height: 40vh;
+    padding: 16px 14px;
+  }
+
+  .Zhang_kbAsk {
+    padding: 12px;
+  }
+
+  .Zhang_kbAsk__send {
+    padding: 12px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Zhang_kbHero,
+  .Zhang_kbPanel,
+  .Zhang_kbDoc {
+    animation: none;
+  }
+}
