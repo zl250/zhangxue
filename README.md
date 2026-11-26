@@ -24,6 +24,8 @@
   提问时按余弦相似度检索 Top 4 片段，再交给大模型生成带引用来源的回答；支持文档列表与删除
 - AI 结构化抽取（Harness Engineering）：商业评论转固定结构 JSON（情感、方面词、实体、关键词、投诉），
   以及图片上传后的图像识别与 OCR，全部结果输出到控制台
+- 知乎新闻（Supabase）：云端 PostgreSQL 建 3 张表（话题/新闻/评论），RLS 匿名只读，
+  前端用原生 fetch 调用 PostgREST 接口，支持话题筛选、标题搜索与详情评论
 
 ## 目录结构
 
@@ -40,6 +42,7 @@
 │  ├─ chat.html              # AI 聊天页
 │  ├─ kb.html                # 知识库问答页（上传 / 管理 / 问答）
 │  ├─ harness.html           # AI 结构化抽取页（评论抽取 / 图像识别 OCR）
+│  ├─ supabase-news.html     # 知乎新闻页（Supabase REST 接口）
 │  ├─ css/                   # 样式
 │  ├─ js/                    # 脚本
 │  ├─ fonts/                 # iconfont 图标文件

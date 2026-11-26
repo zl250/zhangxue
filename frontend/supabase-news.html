@@ -1,0 +1,76 @@
+<!--
+  姓名：张雪 | 学号：24001010727 | 时间：2026-11-26 | 大模型：DeepSeek-V4.1-Flash
+  说明：知乎新闻页，通过原生 fetch 调用 Supabase REST 接口读取话题、新闻与评论
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>知乎新闻 | 知乎的模仿与创作</title>
+  <meta name="description" content="张雪的知乎模仿项目：Supabase 云端知乎新闻">
+  <link rel="stylesheet" href="css/Zhang_index.css">
+  <link rel="stylesheet" href="css/Zhang_supabaseNews.css">
+</head>
+<body class="Zhang_body">
+  <canvas id="Zhang_canvas" class="Zhang_canvas" aria-hidden="true"></canvas>
+  <div class="Zhang_aurora Zhang_aurora--one" aria-hidden="true"></div>
+  <div class="Zhang_aurora Zhang_aurora--two" aria-hidden="true"></div>
+
+  <header class="Zhang_header">
+    <div class="Zhang_header__brand">
+      <span class="Zhang_logo">知</span>
+      <span class="Zhang_header__name">知乎 · 模仿与创作</span>
+    </div>
+    <a class="Zhang_header__tag Zhang_header__link" href="index.html">返回首页</a>
+  </header>
+
+  <main class="Zhang_snMain">
+    <section class="Zhang_snHero">
+      <p class="Zhang_snHero__eyebrow">SUPABASE · POSTGREST</p>
+      <h1 class="Zhang_snHero__title">知乎新闻</h1>
+      <p class="Zhang_snHero__desc">
+        数据来自 Supabase 云端 PostgreSQL，前端仅用原生 fetch 调用 REST 接口。
+        三张表均已开启 RLS，匿名用户只能读取，写入只允许 service_role。
+      </p>
+
+      <div class="Zhang_apiBar">
+        <span class="Zhang_apiBar__method Zhang_apiBar__method--get">GET</span>
+        <a class="Zhang_apiBar__link" href="https://cbsevsqqsvqjukvojyny.supabase.co/rest/v1/zhihu_news?select=*" target="_blank" rel="noopener">
+          /rest/v1/zhihu_news
+        </a>
+        <span class="Zhang_apiBar__hint">需携带 apikey 请求头</span>
+      </div>
+    </section>
+
+    <section class="Zhang_snToolbar" aria-label="新闻筛选">
+      <div class="Zhang_snTopics" id="Zhang_snTopics"></div>
+      <div class="Zhang_snSearch">
+        <input class="Zhang_snSearch__field" id="Zhang_snKeyword" type="search"
+               placeholder="搜索标题，例如：芯片" aria-label="搜索新闻标题">
+        <button class="Zhang_snSearch__btn" id="Zhang_snRefresh" type="button">刷新</button>
+      </div>
+    </section>
+
+    <p class="Zhang_snStatus" id="Zhang_snStatus" aria-live="polite">正在加载新闻…</p>
+
+    <section class="Zhang_snGrid" id="Zhang_snGrid" aria-live="polite"></section>
+  </main>
+
+  <div class="Zhang_snDetail" id="Zhang_snDetail" aria-hidden="true">
+    <div class="Zhang_snDetail__mask" id="Zhang_snMask"></div>
+    <article class="Zhang_snDetail__panel" role="dialog" aria-modal="true" aria-labelledby="Zhang_snDetailTitle">
+      <button class="Zhang_snDetail__close" id="Zhang_snClose" type="button" aria-label="关闭详情">×</button>
+      <div class="Zhang_snDetail__body" id="Zhang_snDetailBody"></div>
+    </article>
+  </div>
+
+  <footer class="Zhang_footer">
+    <span>张雪 · 24001010727 · 知乎的模仿与创作</span>
+    <span class="Zhang_footer__year">2026</span>
+  </footer>
+
+  <script src="js/Zhang_canvas.js"></script>
+  <script src="js/Zhang_supabaseNews.js"></script>
+</body>
+</html>
